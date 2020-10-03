@@ -1,0 +1,173 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Хранилище paymentModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="Бланк">
+    <Key>
+      <PropertyRef Name="Код_бланка" />
+    </Key>
+    <Property Name="Код_бланка" Type="int" Nullable="false" />
+    <Property Name="Бухгалтер" Type="int" />
+    <Property Name="Студент" Type="int" />
+    <Property Name="Оплата" Type="int" />
+  </EntityType>
+  <EntityType Name="Бухгалтер">
+    <Key>
+      <PropertyRef Name="Код_бухгалтера" />
+    </Key>
+    <Property Name="Код_бухгалтера" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Фамилия" Type="char" MaxLength="20" />
+    <Property Name="Имя" Type="char" MaxLength="20" />
+    <Property Name="Отчество" Type="char" MaxLength="20" />
+    <Property Name="Логин" Type="nvarchar" MaxLength="50" />
+    <Property Name="Пароль" Type="nvarchar" MaxLength="50" />
+    <Property Name="admin" Type="char" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="Группа">
+    <Key>
+      <PropertyRef Name="Код_группы" />
+    </Key>
+    <Property Name="Код_группы" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Наименование" Type="char" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="Задолжность">
+    <Key>
+      <PropertyRef Name="Код_задолжности" />
+    </Key>
+    <Property Name="Код_задолжности" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Сумма_задолжености" Type="money" />
+    <Property Name="Студент" Type="int" />
+  </EntityType>
+  <EntityType Name="Оплата">
+    <Key>
+      <PropertyRef Name="Код_оплаты" />
+    </Key>
+    <Property Name="Код_оплаты" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Сумма_оплаты" Type="money" />
+    <Property Name="Дата_оплаты" Type="date" />
+    <Property Name="Студент" Type="int" />
+  </EntityType>
+  <EntityType Name="Студент">
+    <Key>
+      <PropertyRef Name="Код_студента" />
+    </Key>
+    <Property Name="Код_студента" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Фамилия" Type="char" MaxLength="20" />
+    <Property Name="Имя" Type="char" MaxLength="20" />
+    <Property Name="Отчество" Type="char" MaxLength="20" />
+    <Property Name="Группа" Type="int" />
+  </EntityType>
+  <Association Name="FK_Бланк_Бухгалтер">
+    <End Role="Бухгалтер" Type="Self.Бухгалтер" Multiplicity="0..1" />
+    <End Role="Бланк" Type="Self.Бланк" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Бухгалтер">
+        <PropertyRef Name="Код_бухгалтера" />
+      </Principal>
+      <Dependent Role="Бланк">
+        <PropertyRef Name="Бухгалтер" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Бланк_Оплата">
+    <End Role="Оплата" Type="Self.Оплата" Multiplicity="0..1" />
+    <End Role="Бланк" Type="Self.Бланк" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Оплата">
+        <PropertyRef Name="Код_оплаты" />
+      </Principal>
+      <Dependent Role="Бланк">
+        <PropertyRef Name="Оплата" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Бланк_Студент">
+    <End Role="Студент" Type="Self.Студент" Multiplicity="0..1" />
+    <End Role="Бланк" Type="Self.Бланк" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Студент">
+        <PropertyRef Name="Код_студента" />
+      </Principal>
+      <Dependent Role="Бланк">
+        <PropertyRef Name="Студент" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Задолжность_Студент">
+    <End Role="Студент" Type="Self.Студент" Multiplicity="0..1" />
+    <End Role="Задолжность" Type="Self.Задолжность" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Студент">
+        <PropertyRef Name="Код_студента" />
+      </Principal>
+      <Dependent Role="Задолжность">
+        <PropertyRef Name="Студент" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Оплата_Студент">
+    <End Role="Студент" Type="Self.Студент" Multiplicity="0..1" />
+    <End Role="Оплата" Type="Self.Оплата" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Студент">
+        <PropertyRef Name="Код_студента" />
+      </Principal>
+      <Dependent Role="Оплата">
+        <PropertyRef Name="Студент" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Студент_Группа">
+    <End Role="Группа" Type="Self.Группа" Multiplicity="0..1" />
+    <End Role="Студент" Type="Self.Студент" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Группа">
+        <PropertyRef Name="Код_группы" />
+      </Principal>
+      <Dependent Role="Студент">
+        <PropertyRef Name="Группа" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Хранилище paymentModelContainer">
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Бланк" EntityType="Self.Бланк" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Бухгалтер" EntityType="Self.Бухгалтер" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Группа" EntityType="Self.Группа" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Задолжность" EntityType="Self.Задолжность" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Оплата" EntityType="Self.Оплата" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Студент" EntityType="Self.Студент" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Бланк_Бухгалтер" Association="Self.FK_Бланк_Бухгалтер">
+      <End Role="Бухгалтер" EntitySet="Бухгалтер" />
+      <End Role="Бланк" EntitySet="Бланк" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Бланк_Оплата" Association="Self.FK_Бланк_Оплата">
+      <End Role="Оплата" EntitySet="Оплата" />
+      <End Role="Бланк" EntitySet="Бланк" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Бланк_Студент" Association="Self.FK_Бланк_Студент">
+      <End Role="Студент" EntitySet="Студент" />
+      <End Role="Бланк" EntitySet="Бланк" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Задолжность_Студент" Association="Self.FK_Задолжность_Студент">
+      <End Role="Студент" EntitySet="Студент" />
+      <End Role="Задолжность" EntitySet="Задолжность" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Оплата_Студент" Association="Self.FK_Оплата_Студент">
+      <End Role="Студент" EntitySet="Студент" />
+      <End Role="Оплата" EntitySet="Оплата" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Студент_Группа" Association="Self.FK_Студент_Группа">
+      <End Role="Группа" EntitySet="Группа" />
+      <End Role="Студент" EntitySet="Студент" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

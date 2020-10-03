@@ -1,0 +1,42 @@
+﻿<Window x:Class="payment_remastered_.Views.accountantReg"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:payment_remastered_.Views"
+        mc:Ignorable="d"
+        Title="accountantReg" Height="482" Width="389">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="Регистрация бухгалтера" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20"/>
+        <DockPanel Grid.Row="1">
+            <TextBlock Text="Фамилия" FontSize="16" VerticalAlignment="Center" Width="120"/>
+            <TextBox x:Name="accountantSurname" Height="20"/>
+        </DockPanel>
+        <DockPanel Grid.Row="2">
+            <TextBlock Text="Имя" FontSize="16" VerticalAlignment="Center" Width="120"/>
+            <TextBox x:Name="accountantName" Height="20"/>
+        </DockPanel>
+        <DockPanel Grid.Row="3">
+            <TextBlock Text="Отчество" FontSize="16" VerticalAlignment="Center" Width="120"/>
+            <TextBox x:Name="accountantMidname" Height="20"/>
+        </DockPanel>
+        <DockPanel Grid.Row="4">
+            <TextBlock Text="Логин" FontSize="16" VerticalAlignment="Center" Width="120"/>
+            <TextBox x:Name="login" Height="20"/>
+        </DockPanel>
+        <DockPanel Grid.Row="5">
+            <TextBlock Text="Пароль" FontSize="16" VerticalAlignment="Center" Width="120"/>
+            <PasswordBox x:Name="password" Height="20"/>
+        </DockPanel>
+        <Button Grid.Row="6" Content="Зарегистрировать" Height="30" Width="180" FontSize="18"/>
+    </Grid>
+</Window>
